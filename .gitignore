@@ -43,3 +43,9 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 .npmrc
+
+# Contentstack credentials (real values) — never commit; use the .example.ts template
+src/environments/contentstack.environment.ts
+.env
+.env.local
+.env.*.local
