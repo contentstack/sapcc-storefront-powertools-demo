@@ -9,6 +9,9 @@
     "powertools-spa": {
       "projectType": "application",
       "schematics": {
+        "@spartacus/schematics:add-spartacus": {
+          "featureLevel": "6.7"
+        },
         "@schematics/angular:component": {
           "style": "scss",
           "type": "component",
@@ -52,11 +55,29 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@spartacus/smartedit/assets",
+                "output": "assets/"
               }
             ],
             "styles": [
-              "src/styles.scss"
-            ]
+              "src/styles.scss",
+              "src/styles/spartacus/user.scss",
+              "src/styles/spartacus/cart.scss",
+              "src/styles/spartacus/order.scss",
+              "src/styles/spartacus/checkout.scss",
+              "src/styles/spartacus/storefinder.scss",
+              "src/styles/spartacus/asm.scss",
+              "src/styles/spartacus/product.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/"],
+              "sass": {
+                "silenceDeprecations": ["import"]
+              }
+            }
           },
           "configurations": {
             "production": {
@@ -64,7 +85,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "3.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -95,7 +116,28 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/"]
+            },
+            "styles": [
+              "src/styles/spartacus/user.scss",
+              "src/styles/spartacus/cart.scss",
+              "src/styles/spartacus/order.scss",
+              "src/styles/spartacus/checkout.scss",
+              "src/styles/spartacus/storefinder.scss",
+              "src/styles/spartacus/asm.scss",
+              "src/styles/spartacus/product.scss"
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@spartacus/smartedit/assets",
+                "output": "assets/"
+              }
+            ]
+          }
         }
       }
     }
