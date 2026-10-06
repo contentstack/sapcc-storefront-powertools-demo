@@ -9,6 +9,15 @@ Commerce data (products, pricing, cart, checkout) comes from a SAP Commerce Clou
 page content — the homepage, navigation, footer, and marketing slots — comes from Contentstack,
 rendered as a hybrid over the OCC base (unauthored pages/slots fall back to OCC automatically).
 
+> **ℹ️ About the Contentstack stack**
+> This demo reads its content from a Contentstack stack. To run it against your own stack, you must
+> first configure the **content models and entries in Contentstack that correspond to this demo
+> site** — the storefront only renders content that already exists in the stack.
+>
+> **For internal use:** Contentstack developers don't need to build this from scratch — an
+> already-configured demo stack exists. **Ask the repo owner for the stack details** (API key +
+> delivery token), add them to `.env`, and the demo runs locally with no further setup.
+
 ## Prerequisites
 
 | Requirement | Notes |
