@@ -14,7 +14,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 
-const VALID_REGIONS = ['US', 'EU', 'AZURE_NA', 'AZURE_EU', 'GCP_NA', 'GCP_EU'];
+const VALID_REGIONS = ['US', 'EU', 'AU', 'AZURE_NA', 'AZURE_EU', 'GCP_NA', 'GCP_EU'];
 
 const required = ['CS_API_KEY', 'CS_DELIVERY_TOKEN'];
 const missing = required.filter((k) => !process.env[k]);
@@ -32,6 +32,25 @@ if (!VALID_REGIONS.includes(region)) {
 
 const environment = process.env.CS_ENVIRONMENT || 'development';
 const livePreview = process.env.CS_LIVE_PREVIEW === 'true';
+const previewToken = process.env.CS_PREVIEW_TOKEN || '';
+const previewHost = process.env.CS_PREVIEW_HOST || '';
+const branch = process.env.CS_BRANCH || '';
+const allowInProduction = process.env.CS_LIVE_PREVIEW_ALLOW_IN_PRODUCTION === 'true';
+
+if (livePreview && !previewToken) {
+  console.error('[contentstack-env] CS_LIVE_PREVIEW=true but CS_PREVIEW_TOKEN is empty.');
+  console.error('[contentstack-env] Create a preview token in the stack (Settings > Tokens) and set it, or set CS_LIVE_PREVIEW=false.');
+  process.exit(1);
+}
+
+// Optional keys are only written when set, so the connector's defaults apply
+// (e.g. the preview host is derived from the region).
+const optional = [
+  branch && `  branch: '${branch}',`,
+  livePreview && `  previewToken: '${previewToken}',`,
+  livePreview && previewHost && `  previewHost: '${previewHost}',`,
+  livePreview && allowInProduction && `  livePreviewAllowInProduction: true,`,
+].filter(Boolean);
 
 const content = `import { Region } from '@contentstack/delivery-sdk';
 
@@ -42,11 +61,11 @@ export const contentstackDelivery = {
   deliveryToken: '${process.env.CS_DELIVERY_TOKEN}',
   environment: '${environment}',
   region: Region.${region},
-  livePreview: ${livePreview},
+  livePreview: ${livePreview},${optional.length ? '\n' + optional.join('\n') : ''}
 };
 `;
 
 const outPath = path.join(__dirname, '..', 'src', 'environments', 'contentstack.environment.ts');
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, content);
-console.log(`[contentstack-env] Wrote ${outPath} (region=${region}, environment=${environment}, livePreview=${livePreview})`);
+console.log(`[contentstack-env] Wrote ${outPath} (region=${region}, environment=${environment}, livePreview=${livePreview}${livePreview ? `, previewHost=${previewHost || 'region default'}, allowInProduction=${allowInProduction}` : ''})`);
