@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { translationChunksConfig, translationsEn } from '@spartacus/assets';
 import {
   FeaturesConfig,
@@ -24,7 +24,12 @@ import {
     provideConfig(<OccConfig>{
       backend: {
         occ: {
-          baseUrl: 'https://40.76.109.9:9002',
+          // Dev: same-origin, so `ng serve` proxies /occ and /medias to the
+          // backend (proxy.conf.json) and its self-signed cert never reaches
+          // the browser or the Visual Builder iframe.
+          baseUrl: isDevMode()
+            ? window.location.origin
+            : 'https://40.76.109.9:9002',
         },
       },
     }),

@@ -1,0 +1,12 @@
+{
+  "/occ": {
+    "target": "https://40.76.109.9:9002",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "^/+medias": {
+    "target": "https://40.76.109.9:9002",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
