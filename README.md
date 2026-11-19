@@ -9,7 +9,7 @@ Commerce data (products, pricing, cart, checkout) comes from a SAP Commerce Clou
 page content — the homepage, navigation, footer, and marketing slots — comes from Contentstack,
 rendered as a hybrid over the OCC base (unauthored pages/slots fall back to OCC automatically).
 
-> **📘 Full guide:** setup, the optional SAP product picker, Live Preview and troubleshooting are in
+> **📘 Full guide:** setup, Live Preview and troubleshooting are in
 > [Set Up the SAP Composable Storefront Demos][demo-guide]. This README is the quick start.
 
 ## Prerequisites
