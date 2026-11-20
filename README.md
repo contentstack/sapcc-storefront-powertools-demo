@@ -55,7 +55,7 @@ export CS_API_KEY=<YOUR_STACK_API_KEY>
 export OCC_BASE_URL=https://<SAP_HOST>/occ/v2   # the server in proxy.conf.json
 export OCC_INSECURE_TLS=1                      # only for a self-signed dev server you trust
 
-# Optional: let editors pick carousel products from SAP (SAP Commerce Cloud app)
+# SAP product picker on the carousels (SAP Commerce Cloud app)
 export SAP_APP_API_BASE_URL=<SAP_API_HOST>     # host only, publicly trusted certificate
 export SAP_APP_BASE_SITE=powertools-spa
 export SAP_APP_BACKOFFICE_URL=<BACKOFFICE_HOST>/backoffice
@@ -66,9 +66,10 @@ Then ask your agent:
 > Import the `powertools-spa` SAP storefront into my Contentstack stack, with German, Japanese and Chinese.
 
 The agent does a dry run first, shows what it will write, and asks before it writes and publishes
-to the `development` environment. With the picker settings exported, it first checks that SAP
-server and stops before installing anything if the check fails. Re-running it updates entries in
-place.
+to the `development` environment. It sets up the SAP product picker on the carousels; if the
+picker can't be set up (settings missing, a connector that reads only the plain product list, or
+an SAP server that fails its check), it keeps the plain product list and says why. Re-running it
+updates entries in place.
 
 ## Step 3 — Configure and run
 
