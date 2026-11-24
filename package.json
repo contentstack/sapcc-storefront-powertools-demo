@@ -46,7 +46,7 @@
     "@spartacus/tracking": "~221121.15.1",
     "@spartacus/user": "~221121.15.1",
     "angular-oauth2-oidc": "^20.0.2",
-    "i18next": "^25.7.4",
+    "i18next": "^26.3.4",
     "i18next-http-backend": "^4.0.9",
     "i18next-resources-to-backend": "^1.2.1",
     "ngx-infinite-scroll": "^21.0.0",
